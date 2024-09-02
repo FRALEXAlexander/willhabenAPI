@@ -31,6 +31,7 @@ Method | Description
 .transferType(int) | adds a transfer type to search
 .count(int) | sets the count of how many results should be searched for
 .paylivery(boolean) | sets if you should search for [PayLivery](https://hilfe.willhaben.at/hc/de/categories/360002297680-PayLivery-Online-Zahlung-und-Versand)
+.sortBy(int) | sets sort order
 .keyword(string) | sets the keyword to search for (basically a text search)
 .getURL() | get URL with the currently set variables
 .search() | executes search -> returns Promise
@@ -44,10 +45,10 @@ console.log(willhaben.getCategories.grafikkarten)
 ```
 Property | Constant Description
 ------------ | -------------
-.getCategories | get the integer for a category
-.getConditions | get the integer for a condition
-.getTransferTypes | get the integer for a transfer type
-
+.Categories | get the integer for a category
+.Conditions | get the integer for a condition
+.TransferTypes | get the integer for a transfer type
+.SortOrder | get the integer for a sort order
 
 ###### Example
 This example searches for `rtx` in the `Grafikkarten` category and will show the first 1000 results. (same example as above)

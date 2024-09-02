@@ -1,5 +1,5 @@
 {
-  "name": "willhaben",
+  "name": "willhabenapi",
   "version": "0.2.1",
   "description": "",
   "main": "app.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CP02A/willhaben.git"
+    "url": "git+https://github.com/FRALEXAlexander/willhabenAPI.git"
   },
   "author": "Christian Proschek",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/CP02A/willhaben/issues"
+    "url": "https://github.com/FRALEXAlexander/willhabenAPI/issues"
   },
-  "homepage": "https://github.com/CP02A/willhaben#readme",
+  "homepage": "https://github.com/FRALEXAlexander/willhabenAPI#readme",
   "dependencies": {
     "node-fetch": "^2.6.1"
   },
