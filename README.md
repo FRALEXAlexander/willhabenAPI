@@ -32,6 +32,7 @@ Method | Description
 .count(int) | sets the count of how many results should be searched for
 .paylivery(boolean) | sets if you should search for [PayLivery](https://hilfe.willhaben.at/hc/de/categories/360002297680-PayLivery-Online-Zahlung-und-Versand)
 .sortBy(int) | sets sort order
+.area(...int) | restricts the search to one or more states/districts
 .keyword(string) | sets the keyword to search for (basically a text search)
 .getURL() | get URL with the currently set variables
 .search() | executes search -> returns Promise
@@ -49,6 +50,7 @@ Property | Constant Description
 .Conditions | get the integer for a condition
 .TransferTypes | get the integer for a transfer type
 .SortOrder | get the integer for a sort order
+.AreaFilter | get the ID for a state or district, grouped by state
 
 ###### Example
 This example searches for `rtx` in the `Grafikkarten` category and will show the first 1000 results. (same example as above)
@@ -63,3 +65,23 @@ willhaben.new()
         console.log(json)
     })
 ```
+
+
+## Maintenance
+
+### Regenerating the area IDs
+The `areaIds` constant in `app.js` (exported as `.AreaFilter`) maps every Austrian state and district to the ID willhaben uses in its URLs. Those IDs come from the search page itself, so if willhaben adds or renames a district the constant has to be rebuilt from a fresh payload.
+
+`tools/extractAreaIds.js` does that.
+
+1. Open any marketplace search on `https://www.willhaben.at` in the browser.
+2. View the page source and copy the JSON inside `<script id="__NEXT_DATA__" type="application/json">` into a file, e.g. `payload.json`. (This is the same blob `.getListings()` parses.) A bare `navigatorGroups` array is accepted too.
+3. Run the script:
+```bash
+node tools/extractAreaIds.js payload.json areaIds.json
+```
+4. Paste the contents of `areaIds.json` into the `areaIds` constant in `app.js`.
+
+The script reads the navigator with the id `district` out of the payload, groups each district under its parent state, and normalizes the labels into property names (umlauts transliterated, `-` and spaces to `_`, `,` and `.` dropped) — so `Eisenstadt-Umgebung` becomes `eisenstadt___umgebung`.
+
+Note that the districts present in a payload depend on the search it came from: a narrow search will not list every area. In particular the foreign countries under `andereLänder` only appear in payloads from searches that actually have foreign listings.
